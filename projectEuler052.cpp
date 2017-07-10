@@ -19,7 +19,7 @@ int main () {
 
 	for (int i = 125874; i < 400000; i++) {
 		string s = to_string (i);
-		vector <int> n;										//	Contains the digits of i.
+		vector <int> n;								//	Contains the digits of i.
 		for (int j = 0; j < s.length (); j++) {
 			n.push_back (int (s [j] - 48));
 		}
@@ -28,7 +28,7 @@ int main () {
 		for (int k = 2; k < 7; k++) {						//	2x, 3x, 4x, 5x, 6x
 
 			string s2 = to_string (i * k);
-			vector <int> n2;								//	Contains the digits of the multiple i * k.
+			vector <int> n2;						//	Contains the digits of the multiple i * k.
 			if (s2.length () == s.length ()) {				//	If the # digits of i and (i * k) are equal...
 				for (int x = 0; x < s2.length (); x++) {
 					n2.push_back (int (s2 [x] - 48));
