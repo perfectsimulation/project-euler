@@ -40,12 +40,12 @@ int main () {
 
 	vector <int> primes;
 	string line;
-	ifstream myfile ("primes.txt");									//	primes.txt is a list of all primes < 1 million.
+	ifstream myfile ("primes.txt");						//	primes.txt is a list of all primes < 1 million.
 	if (myfile.is_open ()) {
 		while (getline (myfile, line)) {
 			int p = strToInt (line);
 			if (p > 99999) {
-				primes.push_back (p);								//	Only consider primes containing six digits.
+				primes.push_back (p);				//	Only consider primes containing six digits.
 			}
 		}
 		myfile.close ();
@@ -53,27 +53,27 @@ int main () {
 
 	for (auto a = primes.begin (); a < primes.end (); a++) {		//	For each prime...
 		string s = to_string (*a);
-		int num [6] = { };											//	Contains the digits of a given prime.
-		int family = 1;												//	Number of successfully replaced primes for a given prime.
-		vector <int> members;										//	Contains all primes in a given prime's "family."
-		members.push_back (*a);										//	The given prime is the first element of members.
+		int num [6] = { };						//	Contains the digits of a given prime.
+		int family = 1;							//	Number of successfully replaced primes for a given prime.
+		vector <int> members;						//	Contains all primes in a given prime's "family."
+		members.push_back (*a);						//	The given prime is the first element of members.
 		
 		for (int b = 0; b < 6; b++) {
 			num [b] = int (s [b] - 48);
 		}
 
 		int digits [] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-		int occurences [10] = { };									//	Keeps track of # times each digit appears for a given prime.
+		int occurences [10] = { };					//	Keeps track of # times each digit appears for a given prime.
 
 		for (int c = 0; c < 6; c++) {
 			for (int d = 0; d < 10; d++) {
 				if (num [c] == digits [d]) {
-					occurences [d]++;								//	# times the digit x occurs is stored in occurences [x].
+					occurences [d]++;			//	# times the digit x occurs is stored in occurences [x].
 				}
 			}
 		}
 
-		bool repeats = false;										//	Used to signal if there are any digits occuring more than once.
+		bool repeats = false;						//	Used to signal if there are any digits occuring more than once.
 		
 		while (!repeats) {
 			repeats = true;
@@ -95,14 +95,14 @@ int main () {
 				break;
 			}
 
-			vector <int> places;											//	Contains the indices where the repeating digit occurs.
+			vector <int> places;									//	Contains the indices where the repeating digit occurs.
 			for (int f = 0; f < 6; f++) {
 				if (num [f] == repeatDigit) {
 					places.push_back (f);
 				}
 			}
 
-			for (int g = 0; g < 10; g++) {									//	Replace repeating digits with 0 thru 9.
+			for (int g = 0; g < 10; g++) {								//	Replace repeating digits with 0 thru 9.
 				int numRep [6] = { };
 
 				for (int h = 0; h < 6; h++) {
@@ -111,7 +111,7 @@ int main () {
 
 				bool isFirstDigit0 = false;
 				for (auto i = places.begin (); i < places.end (); i++) {
-					if ((*i == 0) && (g == 0)) {							//	Avoid replacing the first digit with 0.
+					if ((*i == 0) && (g == 0)) {						//	Avoid replacing the first digit with 0.
 						isFirstDigit0 = true;
 					}
 					if (!isFirstDigit0 || (g != 0)) {
@@ -124,18 +124,18 @@ int main () {
 					numRepStr += to_string (numRep [j]);
 				}
 
-				int rep = strToInt (numRepStr);													//	The new number with replaced digits.
-				if (find (primes.begin (), primes.end (), rep) != primes.end ()) {				//	If the new number is prime...
-					if (find (members.begin (), members.end (), rep) == members.end ()) {		//	... and it's not already in members...
-						members.push_back (rep);												//	Add the new digit-replaced prime to members
-						family++;																//	and increment family.
+				int rep = strToInt (numRepStr);							//	The new number with replaced digits.
+				if (find (primes.begin (), primes.end (), rep) != primes.end ()) {		//	If the new number is prime...
+					if (find (members.begin (), members.end (), rep) == members.end ()) {	//	... and it's not already in members...
+						members.push_back (rep);					//	Add the new digit-replaced prime to members
+						family++;							//	and increment family.
 					}
 				}
 
 			}
 
-			if (family == 8) {																	//	Once the first prime with a family of 8 is found,
-				for (auto k = members.begin (); k < members.end (); k++) {						//	end the program.
+			if (family == 8) {									//	Once the first prime with a family of 8 is found,
+				for (auto k = members.begin (); k < members.end (); k++) {			//	end the program.
 					cout << *k << " ";
 				}
 				cout << endl;
